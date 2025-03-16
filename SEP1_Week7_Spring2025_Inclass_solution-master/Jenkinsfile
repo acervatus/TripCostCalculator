@@ -20,34 +20,39 @@ pipeline {
 		}
         stage('Test') {
             steps {
-                bat 'mvn test'
+				dir('SEP1_Week7_Spring2025_Inclass_solution-master') {
+					bat 'mvn test'
+				}
             }
         }
         stage('Code Coverage') {
             steps {
-                bat 'mvn jacoco:report'
+				dir('SEP1_Week7_Spring2025_Inclass_solution-master') {
+					bat 'mvn jacoco:report'
+				}
             }
         }
         stage('Download Coverage File') {
             steps {
-                bat 'wget -O target/jacoco.exec https://github.com/acervatus/TripCostCalculator/blob/main/SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec'
+				bat 'wget -O target/jacoco.exec https://github.com/acervatus/TripCostCalculator/blob/main/SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec'
             }
         }
         stage('Publish Test Results') {
             steps {
-                junit '**/target/surefire-reports/*.xml'
+                junit 'SEP1_Week7_Spring2025_Inclass_solution-master/target/surefire-reports/*.xml'
             }
         }
         stage('Publish Coverage Report') {
             steps {
-                // Use the correct parameter for JaCoCo coverage report
-                jacoco(path: 'target/jacoco.exec')
+                jacoco(path: 'SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec')
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                dir('SEP1_Week7_Spring2025_Inclass_solution-master') {
+                    script {
+                        docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                    }
                 }
             }
         }
