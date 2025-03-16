@@ -34,7 +34,7 @@ pipeline {
         stage('Publish Coverage Report') {
             steps {
                 // Publish Jacoco coverage report
-                jacoco()
+                jacoco(execPattern: '**/target/*.exec', classPattern: '**/target/classes', sourcePattern: '**/src/main/java', exclusionPattern: '')
             }
         }
         stage('Build Docker Image') {
