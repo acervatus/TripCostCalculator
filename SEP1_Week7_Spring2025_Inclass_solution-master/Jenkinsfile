@@ -12,10 +12,12 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-                bat 'mvn clean install'
-            }
-        }
+			steps {
+				dir('SEP1_Week7_Spring2025_Inclass_solution-master') {
+					bat 'mvn clean install'
+				}
+			}
+		}
         stage('Test') {
             steps {
                 bat 'mvn test'
