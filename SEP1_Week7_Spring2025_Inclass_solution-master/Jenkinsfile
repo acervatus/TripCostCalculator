@@ -32,10 +32,7 @@ pipeline {
 				}
             }
         }
-        stage('Download Coverage File') {
-            steps {
-				powershell 'Invoke-WebRequest -Uri https://github.com/acervatus/TripCostCalculator/blob/main/SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec -OutFile target/jacoco.exec'            }
-        }
+
         stage('Publish Test Results') {
             steps {
                 junit 'SEP1_Week7_Spring2025_Inclass_solution-master/target/surefire-reports/*.xml'
