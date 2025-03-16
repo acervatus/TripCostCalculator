@@ -34,8 +34,7 @@ pipeline {
         }
         stage('Download Coverage File') {
             steps {
-				bat 'wget -O target/jacoco.exec https://github.com/acervatus/TripCostCalculator/blob/main/SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec'
-            }
+				powershell 'Invoke-WebRequest -Uri https://github.com/acervatus/TripCostCalculator/blob/main/SEP1_Week7_Spring2025_Inclass_solution-master/target/jacoco.exec -OutFile target/jacoco.exec'            }
         }
         stage('Publish Test Results') {
             steps {
